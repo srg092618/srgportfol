@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steven Goncalves</title>
+<meta name="description" content="Steven Goncalves, data scientist specializing in machine learning: disease forecasting, random forests, clustering and interactive model demos.">
+<meta property="og:title" content="Steven Goncalves | Data scientist, machine learning">
+<meta property="og:description" content="Forecasting and machine learning models that say how sure they are. Live demos included.">
+<meta name="theme-color" content="#101B26">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Steven Goncalves, home">
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M2 16C6 15 8 5 11 5s5 6 9 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M2 16C6 16 9 10 12 10s5 2 8 2" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" opacity=".7"/><circle cx="20" cy="11.5" r="1.8" fill="var(--accent)"/></svg>
+      <span>Steven Goncalves</span>
+    </a>
+    <nav class="main" aria-label="Main">
+      <a href="#forecasting">Forecasting</a>
+      <a href="#visualizations">Visualizations</a>
+      <a href="#lab">Model lab</a>
+      <a href="#about">About</a>
+      <a class="go" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="eyebrow">Data scientist · Machine learning · New Jersey</div>
+      <p class="wordmark"><span>Steven</span><span>Goncalves</span></p>
+      <h1>Forecasts and models that say how sure they are.</h1>
+      <p class="lede">I'm a data scientist specializing in machine learning. I build forecasting pipelines, classifiers and segmentation models, <strong>test them on data they have never seen</strong>, and explain the results in plain language for the people who act on them.</p>
+      <div class="acts">
+        <a class="cta" href="#forecasting">Explore the forecasting model</a>
+        <a class="cta alt" href="#about">Read my background</a>
+      </div>
+    </div>
+
+    <figure class="card fan" style="margin:0">
+      <div class="fan-head">
+        <div><h3>New HIV infections, 2006 to 2029</h3><p>UNAIDS estimates, then my gradient-boosting forecast</p></div>
+      </div>
+      <div class="seg" id="fan-seg" role="group" aria-label="Country"></div>
+      <canvas id="fan" aria-label="Line chart of new HIV infections with a five-year forecast and its uncertainty bands"></canvas>
+      <div class="readout" aria-live="polite">
+        <div><div class="k" id="ro-k1">2024 estimate</div><div class="n" id="ro-v1">–</div></div>
+        <div><div class="k" id="ro-k2">2029 median</div><div class="n" id="ro-v2">–</div></div>
+        <div><div class="k" id="ro-k3">95% interval</div><div class="n" id="ro-v3">–</div></div>
+      </div>
+      <figcaption class="fan-foot">Bands show the 50%, 80% and 95% forecast intervals. Hover or tap the chart to read any year. From the epicast run of 17 November 2026.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<div class="wrap">
+
+<!-- ============ FEATURED PROJECT ============ -->
+<section class="sec" id="forecasting">
+  <div class="sec-head">
+    <div class="eyebrow">Featured project · epicast</div>
+    <h2>Disease forecasting for malaria, HIV and Ebola disease in Africa</h2>
+    <p class="lede">An end-to-end forecasting pipeline: it downloads public WHO, UNAIDS and outbreak data, cleans it into one table, forecasts with eight model families, scores every model on years and weeks it had not seen, recalibrates the uncertainty intervals and builds the interactive dashboard below.</p>
+  </div>
+
+  <div class="grid c4">
+    <div class="tile"><span class="big">0.58</span><p>HIV forecast error relative to a naive baseline, from 6,499 backtest forecasts. Lower is better.</p></div>
+    <div class="tile"><span class="big">94%</span><p>Share of outcomes that landed inside the 95% intervals after recalibration.</p></div>
+    <div class="tile"><span class="big">8</span><p>Model families, from a random walk to gradient boosting and a renewal-equation outbreak model.</p></div>
+    <div class="tile"><span class="big">83</span><p>Automated tests, including one that checks the backtest never sees the future.</p></div>
+  </div>
+
+  <div class="stage">
+    <div class="bar">
+      <p><strong>Live dashboard.</strong> Map, country forecasts, outbreak replay and accuracy tables. It runs entirely in your browser.</p>
+      <div class="acts">
+        <a class="btn" href="demos/disease-forecasting/index.html" target="_blank" rel="noopener">Open full screen</a>
+        <a class="btn" href="https://github.com/srg092618/disease-forecasting" target="_blank" rel="noopener">Code on GitHub</a>
+      </div>
+    </div>
+    <iframe id="if-forecast" src="demos/disease-forecasting/index.html" title="Disease forecasting dashboard: malaria, HIV and Ebola disease" loading="lazy"></iframe>
+  </div>
+
+  <div class="two">
+    <div>
+      <h3>How it works</h3>
+      <p class="muted">Every download is pinned to a fixed version and logged with a hash, so a run can be reproduced exactly. Models forecast nine quantiles on a log scale. A <strong>rolling-origin backtest</strong> hides each future year or week, fits, forecasts and compares, and scores the result with the weighted interval score. <strong>Conformal recalibration</strong> then widens intervals that were too confident, using only outcomes known at the time.</p>
+      <p class="muted">For outbreaks, a renewal-equation model with time-varying R forecasts weekly cases, and a Poisson base rate gives the 12-month chance of a new Ebola, Sudan or Bundibugyo virus outbreak.</p>
+    </div>
+    <div>
+      <h3>What the backtest showed</h3>
+      <p class="muted"><strong>HIV:</strong> one gradient-boosting model pooled across 147 countries cut forecast error by about 40% compared with "next year equals this year".</p>
+      <p class="muted"><strong>Malaria:</strong> no model beat that naive baseline, because incidence has stalled since 2015. The dashboard reports this rather than hiding it.</p>
+      <p class="muted"><strong>Outbreaks:</strong> at one to four weeks ahead, beating persistence is hard. The renewal model edges ahead on Bundibugyo 2026, but 256 forecasts are too few to call it conclusive.</p>
+      <p class="muted">Python, pandas, NumPy, SciPy, statsmodels, scikit-learn, Shapely and pytest.</p>
+    </div>
+  </div>
+  <p class="note">A portfolio project, not a tool for operational decisions. For public-health decisions, use WHO, Africa CDC and national ministries of health.</p>
+</section>
+
+<!-- ============ VISUALIZATIONS ============ -->
+<section class="sec" id="visualizations">
+  <div class="sec-head">
+    <div class="eyebrow">Visualization · Random forests and clustering</div>
+    <h2>From forest to clusters: 64-dimensional data in 3D</h2>
+    <p class="lede">A random forest of 200 trees learns to read 1,797 handwritten digits, each a 64-pixel vector. The 3D scene walks through five stages: a PCA projection, the trees themselves, the forest's own proximity space, scoring on held-out digits, and k-means clustering with no labels at all.</p>
+  </div>
+
+  <div class="grid c4">
+    <div class="tile"><span class="big">97.6%</span><p>Accuracy on 540 held-out digits the forest never trained on.</p></div>
+    <div class="tile"><span class="big">97.0%</span><p>Out-of-bag accuracy, an internal check that agrees with the held-out score.</p></div>
+    <div class="tile"><span class="big">13</span><p>Errors out of 540. Every one was a low-confidence call, mostly 5s, 8s and 9s.</p></div>
+    <div class="tile"><span class="big">0.665</span><p>Adjusted Rand index for k-means against the true digits (1 is a perfect match).</p></div>
+  </div>
+
+  <div class="stage">
+    <div class="bar">
+      <p><strong>Interactive 3D.</strong> Drag to rotate, hover a point for details and use the stage bar along the bottom to move through the pipeline.</p>
+      <div class="acts"><a class="btn" href="demos/forest-to-clusters/index.html" target="_blank" rel="noopener">Open full screen</a></div>
+    </div>
+    <iframe id="if-forest" src="demos/forest-to-clusters/index.html" title="From forest to clusters: random forest and k-means on handwritten digits in 3D" loading="lazy"></iframe>
+  </div>
+</section>
+
+<!-- ============ MODEL LAB ============ -->
+<section class="sec" id="lab">
+  <div class="sec-head">
+    <div class="eyebrow">Model lab · Built for PRONOME</div>
+    <h2>The math behind the work, running live</h2>
+    <p class="lede">Six interactive instruments I made for <a href="https://pronome.ai" target="_blank" rel="noopener">PRONOME</a>, my data science practice. Each one shows a method working on example data, explains it and writes out the equations.</p>
+  </div>
+
+  <div class="lab-bar">
+    <div class="seg" id="lab-seg" role="group" aria-label="Choose a model"></div>
+    <p id="lab-desc" aria-live="polite"></p>
+  </div>
+  <div class="stage">
+    <iframe id="if-lab" title="Model lab" loading="lazy"></iframe>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="sec" id="about">
+  <div class="sec-head">
+    <div class="eyebrow">About</div>
+    <h2>Five years of data science, and a habit of checking the source</h2>
+  </div>
+  <div class="two">
+    <div class="bio">
+      <p>I'm <strong>Steven Goncalves</strong>, a data scientist in New Jersey who specializes in machine learning. Over five years of studying and practicing data science I've built recommendation systems, customer segmentation and predictive models, and helped tune a neural network that reads X-rays.</p>
+      <p>The work I care most about is the kind where a number changes a decision: which patients a radiologist sees first, how much stock a business orders, where an outbreak is likely to grow. That's why every model I ship comes with a baseline it has to beat, a test on data it has never seen and an honest range around its answer.</p>
+      <p>Before data science I worked as a multimedia journalist covering politics and international affairs. It taught me to verify before publishing and to write for readers who aren't specialists, and I still work that way: plain-language results, with the math available to anyone who wants it.</p>
+      <p>I founded <strong>PRONOME</strong>, a data science and software practice for small and mid-sized businesses, and I'm looking for a data scientist or machine learning engineering role on a team that ships models people rely on.</p>
+    </div>
+    <div>
+      <ul class="rows">
+        <li><div><h3>PRONOME LLC</h3><div class="where">Founder · New Jersey</div></div><p>Data science and software development for small businesses: forecasting, segmentation, scoring models and dashboards built from the data they already keep.</p></li>
+        <li><div><h3>Medical image triage</h3><div class="where">Work-study project, team</div></div><p>Tuned a convolutional neural network in Python with TensorFlow and Keras that detects abnormalities in X-rays, so radiologists in Malaysia could prioritize patients waiting for results.</p></li>
+        <li><div><h3>Applied machine learning</h3><div class="where">Projects</div></div><p>Built a recommendation system, group segmentation and predictive analysis models.</p></li>
+        <li><div><h3>MIT School of Engineering</h3><div class="where">Certificate</div></div><p>AI &amp; Data Science Program: Leveraging Responsible AI, Data and Statistics for Practical Impact.</p></li>
+        <li><div><h3>Rutgers University</h3><div class="where">Coursework</div></div><p>Mathematics and computer science.</p></li>
+        <li><div><h3>Kean University</h3><div class="where">Coursework</div></div><p>Communication and international affairs.</p></li>
+        <li><div><h3>Multimedia journalism</h3><div class="where">Before data science</div></div><p>Covered political and international topics, working with the US Department of State, USAID, Portuguese ambassadors to the United States and a US state senate office.</p></li>
+      </ul>
+    </div>
+  </div>
+  <div class="sec-head" style="margin-top:12px"><h3>Tools I work with</h3></div>
+  <ul class="chips">
+    <li>Python</li><li>pandas</li><li>NumPy</li><li>SciPy</li><li>statsmodels</li><li>scikit-learn</li><li>TensorFlow / Keras</li>
+    <li>Gradient boosting</li><li>Random forests</li><li>Time series: ETS, ARIMA</li><li>Quantile forecasting and calibration</li>
+    <li>Clustering and PCA</li><li>pytest and GitHub Actions</li><li>JavaScript visualization: canvas, three.js</li>
+    <li>AWS: S3, CloudFront, Route 53</li><li>Video editing</li>
+  </ul>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="band">
+  <div>
+    <h2>Hiring for data science or machine learning?</h2>
+    <p>I'd be glad to walk you through any of these projects, the code behind them or how I'd approach your data.</p>
+  </div>
+  <div class="acts" id="contact-acts">
+    <a class="cta" id="c-email" href="#contact" hidden>Email me</a>
+    <a class="cta alt" id="c-li" href="#contact" target="_blank" rel="noopener" hidden>LinkedIn</a>
+    <a class="cta alt" href="https://github.com/srg092618" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Steven Goncalves</span>
+    <span>Every demo on this page runs in your browser. Source on <a href="https://github.com/srg092618">GitHub</a>.</span>
+  </div>
+</footer>
+
+<script src="assets/hero-data.js"></script>
+<script src="assets/main.js"></script>
+</body>
+</html>
